@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Love Calculator</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background-color: #ffe4e1;
+            text-align: center;
+            padding: 50px;
+        }
+
+        h1 {
+            font-size: 2.5em;
+            color: #d6336c;
+        }
+
+        input {
+            padding: 10px;
+            width: 250px;
+            font-size: 1em;
+            margin: 10px 0;
+            border: 2px solid #d6336c;
+            border-radius: 8px;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 1em;
+            background-color: #d6336c;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #b02558;
+        }
+
+        #result {
+            margin-top: 30px;
+            font-size: 1.5em;
+            color: #800000;
+        }
+    </style>
+</head>
+<body>
+    <h1>💖 Love Calculator 💖</h1>
+
+    <input type="text" id="name1" placeholder="Your Name"><br>
+    <input type="text" id="name2" placeholder="Their Name"><br>
+    <button onclick="calculateLove()">Calculate</button>
+
+    <div id="result"></div>
+
+    <script>
+        function calculateLove() {
+            const name1 = document.getElementById("name1").value.trim();
+            const name2 = document.getElementById("name2").value.trim();
+
+            if (!name1 || !name2) {
+                document.getElementById("result").innerText = "Please enter both names 💬";
+                return;
+            }
+
+            const combined = (name1 + name2).toLowerCase();
+
+            const trueCount = countLetters(combined, ["t", "r", "u", "e"]);
+            const loveCount = countLetters(combined, ["l", "o", "v", "e"]);
+
+            const score = parseInt(`${trueCount}${loveCount}`);
+
+            let message = "";
+            if (score < 10 || score > 90) {
+                message = `Your Love score is ${score} ❤️ You go together like coke and mentos!`;
+            } else if (score >= 40 && score <= 50) {
+                message = `Your Love score is ${score} 😊 You are alright together.`;
+            } else {
+                message = `Your Love score is ${score} 💕`;
+            }
+
+            document.getElementById("result").innerText = message;
+        }
+
+        function countLetters(str, letters) {
+            return letters.reduce((sum, letter) => sum + (str.split(letter).length - 1), 0);
+        }
+    </script>
+</body>
+</html>
